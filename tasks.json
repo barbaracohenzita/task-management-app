@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "title": "Complete project proposal",
+        "description": "Write and submit the project proposal for the new client.",
+        "priority": "high",
+        "dueDate": "2023-05-01"
+    },
+    {
+        "id": 2,
+        "title": "Team meeting",
+        "description": "Discuss project milestones and deadlines with the team.",
+        "priority": "medium",
+        "dueDate": "2023-05-03"
+    },
+    {
+        "id": 3,
+        "title": "Code review",
+        "description": "Review the code submitted by the development team.",
+        "priority": "low",
+        "dueDate": "2023-05-05"
+    }
+]
