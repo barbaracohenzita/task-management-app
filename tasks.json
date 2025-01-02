@@ -1,23 +1,23 @@
 [
     {
         "id": 1,
-        "title": "Complete project proposal",
-        "description": "Write and submit the project proposal for the new client.",
+        "title": "Buy groceries",
+        "description": "Milk, Bread, Eggs, Butter",
         "priority": "high",
-        "dueDate": "2023-05-01"
+        "dueDate": "2023-04-01"
     },
     {
         "id": 2,
-        "title": "Team meeting",
-        "description": "Discuss project milestones and deadlines with the team.",
+        "title": "Finish project report",
+        "description": "Complete the final draft of the project report",
         "priority": "medium",
-        "dueDate": "2023-05-03"
+        "dueDate": "2023-04-05"
     },
     {
         "id": 3,
-        "title": "Code review",
-        "description": "Review the code submitted by the development team.",
+        "title": "Call plumber",
+        "description": "Fix the leaking sink in the kitchen",
         "priority": "low",
-        "dueDate": "2023-05-05"
+        "dueDate": "2023-04-03"
     }
 ]
