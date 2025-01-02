@@ -5,24 +5,24 @@ This is a web-based task management application where users can create, update, 
 ## Setup Instructions
 
 1. Clone the repository:
-   ```
-   git clone <repository-url>
-   ```
+    ```
+    git clone <repository-url>
+    ```
 
 2. Navigate to the project directory:
-   ```
-   cd <project-directory>
-   ```
+    ```
+    cd <project-directory>
+    ```
 
-3. Install the required dependencies:
-   ```
-   npm install
-   ```
+3. Install the necessary dependencies:
+    ```
+    npm install
+    ```
 
 4. Start the development server:
-   ```
-   npm start
-   ```
+    ```
+    npm start
+    ```
 
 5. Open your browser and navigate to `http://localhost:3000` to view the application.
 
@@ -33,15 +33,13 @@ To run tests, use the following command:
 npm test
 ```
 
-## Building for Production
-
-To create a production build, use the following command:
-```
-npm run build
-```
-
-This will create a `build` directory with the production-ready files.
-
 ## Deployment
 
-To deploy the application, follow the instructions provided by your hosting provider. Ensure that you have set up the necessary environment variables for the application to function correctly.
+To deploy the application, follow these steps:
+
+1. Build the project:
+    ```
+    npm run build
+    ```
+
+2. Deploy the contents of the `build` directory to your preferred hosting provider.

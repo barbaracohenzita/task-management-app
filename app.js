@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title,
             description,
             priority,
-            dueDate
+            dueDate,
         };
 
         addTask(task);
@@ -23,25 +23,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function addTask(task) {
         const taskItem = document.createElement('li');
-        taskItem.textContent = `${task.title} - ${task.description} - ${task.priority} - ${task.dueDate}`;
+        taskItem.innerHTML = `
+            <div class="task-info">
+                <h3>${task.title}</h3>
+                <p>${task.description}</p>
+                <p>Priority: ${task.priority}</p>
+                <p>Due Date: ${task.dueDate}</p>
+            </div>
+            <div class="task-actions">
+                <button class="edit-task">Edit</button>
+                <button class="delete-task">Delete</button>
+            </div>
+        `;
+
         taskList.appendChild(taskItem);
-    }
 
-    function updateTask(taskId, updatedTask) {
-        const taskItems = taskList.querySelectorAll('li');
-        taskItems.forEach((taskItem) => {
-            if (taskItem.dataset.id === taskId.toString()) {
-                taskItem.textContent = `${updatedTask.title} - ${updatedTask.description} - ${updatedTask.priority} - ${updatedTask.dueDate}`;
-            }
+        const editButton = taskItem.querySelector('.edit-task');
+        const deleteButton = taskItem.querySelector('.delete-task');
+
+        editButton.addEventListener('click', () => {
+            editTask(task, taskItem);
+        });
+
+        deleteButton.addEventListener('click', () => {
+            deleteTask(taskItem);
         });
     }
 
-    function deleteTask(taskId) {
-        const taskItems = taskList.querySelectorAll('li');
-        taskItems.forEach((taskItem) => {
-            if (taskItem.dataset.id === taskId.toString()) {
-                taskList.removeChild(taskItem);
-            }
-        });
+    function editTask(task, taskItem) {
+        const title = prompt('Edit Title', task.title);
+        const description = prompt('Edit Description', task.description);
+        const priority = prompt('Edit Priority', task.priority);
+        const dueDate = prompt('Edit Due Date', task.dueDate);
+
+        if (title && description && priority && dueDate) {
+            task.title = title;
+            task.description = description;
+            task.priority = priority;
+            task.dueDate = dueDate;
+
+            taskItem.querySelector('.task-info').innerHTML = `
+                <h3>${task.title}</h3>
+                <p>${task.description}</p>
+                <p>Priority: ${task.priority}</p>
+                <p>Due Date: ${task.dueDate}</p>
+            `;
+        }
+    }
+
+    function deleteTask(taskItem) {
+        taskList.removeChild(taskItem);
     }
 });
