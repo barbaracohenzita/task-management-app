@@ -1,45 +1,34 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.querySelector('#login-form form');
-    const registerForm = document.querySelector('#register-form form');
-    const logoutButton = document.querySelector('#logout-button');
+const users = [];
+let currentUser = null;
 
-    loginForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const username = document.querySelector('#login-username').value;
-        const password = document.querySelector('#login-password').value;
-
-        loginUser(username, password);
-    });
-
-    registerForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const username = document.querySelector('#register-username').value;
-        const password = document.querySelector('#register-password').value;
-
-        registerUser(username, password);
-    });
-
-    logoutButton.addEventListener('click', () => {
-        logoutUser();
-    });
-
-    function loginUser(username, password) {
-        // Implement login logic here
-        console.log(`Logging in user: ${username}`);
+function register(username, password) {
+    if (users.find(user => user.username === username)) {
+        throw new Error('User already exists');
     }
+    const newUser = { username, password };
+    users.push(newUser);
+    return newUser;
+}
 
-    function registerUser(username, password) {
-        // Implement registration logic here
-        console.log(`Registering user: ${username}`);
+function login(username, password) {
+    const user = users.find(user => user.username === username && user.password === password);
+    if (!user) {
+        throw new Error('Invalid username or password');
     }
+    currentUser = user;
+    return user;
+}
 
-    function logoutUser() {
-        // Implement logout logic here
-        console.log('Logging out user');
-    }
+function logout() {
+    currentUser = null;
+}
 
-    function checkUserPermissions(taskId) {
-        // Implement user permission check logic here
-        console.log(`Checking permissions for task: ${taskId}`);
+function checkPermission(task) {
+    if (!currentUser) {
+        throw new Error('User not logged in');
     }
-});
+    // Add logic to check if the current user has permission to access or modify the task
+    return true;
+}
+
+export { register, login, logout, checkPermission };
