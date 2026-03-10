@@ -22,30 +22,55 @@
     </header>
     <main>
         <section id="task-form">
-            <h2>Add New Task</h2>
+            <h2>Add New Task <span class="shortcut-hint">(N)</span></h2>
             <form>
                 <label for="task-title">Title:</label>
                 <input type="text" id="task-title" name="task-title" required>
+
                 <label for="task-desc">Description:</label>
                 <textarea id="task-desc" name="task-desc" required></textarea>
+
                 <label for="task-priority">Priority:</label>
                 <select id="task-priority" name="task-priority" required>
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
                 </select>
-                <label for="task-due-date">Due Date:</label>
-                <input type="date" id="task-due-date" name="task-due-date" required>
+
+                <label for="task-due-date">Due Date (optional):</label>
+                <input type="date" id="task-due-date" name="task-due-date">
+
+                <label for="task-tags">Tags (comma-separated):</label>
+                <input type="text" id="task-tags" name="task-tags" placeholder="e.g. Work, Urgent">
+
+                <label for="task-notes">Notes:</label>
+                <textarea id="task-notes" name="task-notes" placeholder="Add longer notes..."></textarea>
+
                 <button type="submit">Add Task</button>
             </form>
         </section>
+
         <section id="task-list">
-            <h2>Task List</h2>
-            <ul>
-                <!-- Task items will be dynamically added here -->
-            </ul>
+            <div class="task-toolbar">
+                <input id="task-search" type="search" placeholder="Search tasks or subtasks..." aria-label="Search tasks">
+                <button id="theme-toggle" type="button" aria-pressed="false">🌙 Dark mode</button>
+            </div>
+
+            <div class="progress-wrap" aria-live="polite">
+                <div class="progress-label">Progress: <span id="progress-text">0%</span></div>
+                <div class="progress-track"><div id="progress-fill"></div></div>
+            </div>
+
+            <h2>Task List <span class="shortcut-hint">(↑ ↓ Space)</span></h2>
+            <ul id="tasks-root"></ul>
         </section>
     </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-hidden="true">
+        <span id="toast-text"></span>
+        <button id="undo-btn" type="button">Undo</button>
+    </div>
+
     <footer>
         <p>&copy; 2023 Task Management Application</p>
     </footer>

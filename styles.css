@@ -1,8 +1,35 @@
+:root {
+    --bg: #f4ede2;
+    --panel: #fffaf2;
+    --text: #2a2116;
+    --muted: #74624c;
+    --border: #d6c6ae;
+    --accent: #9c6d2e;
+    --danger: #a83a2f;
+    --success: #2f7a4f;
+}
+
+body.dark-mode {
+    --bg: #1f1a17;
+    --panel: #2a2420;
+    --text: #f6ede2;
+    --muted: #c8b39a;
+    --border: #4c4035;
+    --accent: #d8a25f;
+    --danger: #ff7d73;
+    --success: #6cce8f;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 header {
@@ -29,93 +56,225 @@ nav ul li a {
 
 main {
     padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
-#task-form {
-    background-color: #fff;
+#task-form,
+#task-list {
+    background-color: var(--panel);
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     margin-bottom: 20px;
-}
-
-#task-form h2 {
-    margin-top: 0;
-}
-
-#task-form label {
-    display: block;
-    margin-bottom: 5px;
 }
 
 #task-form input,
 #task-form textarea,
-#task-form select {
+#task-form select,
+#task-search {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--panel), #fff 6%);
+    color: var(--text);
 }
 
-#task-form button {
-    background-color: #333;
+button {
+    background-color: var(--accent);
     color: #fff;
-    padding: 10px 20px;
+    padding: 8px 12px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
 }
 
-#task-form button:hover {
-    background-color: #555;
-}
-
-#task-list {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-#task-list h2 {
-    margin-top: 0;
-}
-
-#task-list ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-#task-list ul li {
-    background-color: #f9f9f9;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#task-list ul li .task-info {
-    flex-grow: 1;
-}
-
-#task-list ul li .task-actions {
+.task-toolbar {
     display: flex;
     gap: 10px;
+    margin-bottom: 16px;
 }
 
-#task-list ul li .task-actions button {
-    background-color: #333;
+.progress-wrap {
+    margin-bottom: 14px;
+}
+
+.progress-track {
+    height: 12px;
+    width: 100%;
+    border-radius: 999px;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--border), transparent 20%);
+}
+
+#progress-fill {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--success), #84e2a8);
+    transition: width 0.35s ease;
+}
+
+#tasks-root,
+.subtasks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.subtasks {
+    margin-top: 10px;
+    margin-left: 24px;
+}
+
+.task-card {
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--panel), #fff 7%);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    animation: slideIn 0.22s ease;
+    transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.task-card.dragging {
+    opacity: 0.55;
+    transform: scale(0.98);
+}
+
+.task-card.drop-target {
+    outline: 2px dashed var(--accent);
+}
+
+.task-card.active {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent), transparent 35%);
+}
+
+.task-card.completed .task-title,
+.task-card.completed .task-description {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.task-card.overdue .task-due {
+    color: var(--danger);
+    font-weight: bold;
+}
+
+.task-line {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.task-title {
+    font-weight: 700;
+    min-width: 140px;
+}
+
+.task-title[contenteditable="true"] {
+    border-bottom: 2px solid var(--accent);
+    outline: none;
+}
+
+.task-description {
+    margin: 8px 0;
+    color: var(--muted);
+}
+
+.task-priority,
+.task-due {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+}
+
+.task-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.task-tag {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 999px;
     color: #fff;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
-#task-list ul li .task-actions button:hover {
-    background-color: #555;
+.tag-blue { background: #3c78d8; }
+.tag-green { background: #429c63; }
+.tag-orange { background: #dc7d1f; }
+.tag-purple { background: #7b58c6; }
+.tag-pink { background: #c8528c; }
+.tag-teal { background: #2a9ca0; }
+
+.task-notes {
+    min-height: 70px;
+    width: 100%;
+}
+
+.task-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: flex-start;
+}
+
+.delete-task {
+    background: var(--danger);
+}
+
+.empty-state {
+    padding: 14px;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+}
+
+.toast {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: color-mix(in srgb, var(--panel), #000 8%);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(16px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.toast.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.shortcut-hint {
+    color: var(--muted);
+    font-size: 0.8em;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
